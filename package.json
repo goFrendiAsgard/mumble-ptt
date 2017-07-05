@@ -1,0 +1,28 @@
+{
+  "name": "ptt-client-server",
+  "version": "0.0.0",
+  "description": "PTT Client Server for Mumble",
+  "main": "server.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goFrendiAsgard/ptt.git"
+  },
+  "keywords": [
+    "PTT",
+    "Mumble"
+  ],
+  "author": "goFrendiAsgard",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/goFrendiAsgard/ptt/issues"
+  },
+  "homepage": "https://github.com/goFrendiAsgard/ptt#readme",
+  "dependencies": {
+    "express": "^4.15.3",
+    "node-cmd": "^3.0.0",
+    "node-serial": "^0.1.1"
+  }
+}

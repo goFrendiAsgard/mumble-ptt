@@ -22,7 +22,8 @@
   "homepage": "https://github.com/goFrendiAsgard/ptt#readme",
   "dependencies": {
     "express": "^4.15.3",
+    "http": "0.0.0",
     "node-cmd": "^3.0.0",
-    "node-serial": "^0.1.1"
+    "serialport": "^4.0.7"
   }
 }

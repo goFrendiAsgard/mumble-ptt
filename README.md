@@ -36,3 +36,7 @@ Tujuan project ini adalah memberi tambahan fitur PTT (Push to Talk) di Mumble
     - `device` merupakan alamat port USB, biasanya `/dev/ttyACM0`. Untuk memastikan, unplug dan plug kabel USB, lalu jalankan perintah `dmesg`
     - `id-client` harus berbeda untuk setiap client, bisa diberi nilai berupa kombinasi huruf dan angka tanpa spasi dan tanda baca.
     - `url` diisi dengan http + IP Server.
+
+# Catatan
+
+* Keyboard listener https://www.npmjs.com/package/gkm

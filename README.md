@@ -11,6 +11,7 @@ Tujuan project ini adalah memberi tambahan fitur PTT (Push to Talk) di Mumble
     - `sudo apt-get install mumble-server mumble` <-- menginstall mumber server dan mumble client
 * Install Node.Js (butuh koneksi internet) <-- Node.Js dibutuhkan untuk menjalankan PTT Server
     - `sudo apt-get install nodejs`
+    - `sudo apt-get install nodejs-legacy`
 * Download repository ini (https://github.com/goFrendiAsgard/mumble-ptt/archive/master.zip)
 
 # Setup Instruction for Server

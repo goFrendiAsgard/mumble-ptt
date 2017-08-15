@@ -5,23 +5,13 @@ const Cmd = require('node-cmd')
 const Http = require('http')
 
 
-
-
 if(process.argv.length < 5){
-    console.error(`usage: node ${process.argv[1]} <device> <id> <url>`)
+    console.error(`usage: node ${process.argv[1]} <id> <url>`)
     process.exit(-1);
 }
 
-const device = new SerialPort(process.argv[2]); // buka port
-const id = process.argv[3]
-const url = process.argv[4]
-
-function onOpen() {
-    Cmd.get('mumble rpc mute', function(){
-        console.log('device Open');
-        console.log(`Baud Rate: ${device.options.baudRate}`);
-    })
-}
+const id = process.argv[2]
+const url = process.argv[3]
 
 gkm.events.on('key.pressed', function(data){
     if(data == ['A']){
@@ -39,12 +29,12 @@ gkm.events.on('key.pressed', function(data){
                     output = JSON.parse(output)
                     if(output.allowed){
                         Cmd.get('mumble rpc unmute', function(){
-                            device.write(1)
+                            // do nothing
                         })
                     }
                     else{
                         Cmd.get('mumble rpc mute', function(){
-                            device.write(0)
+                            // do nothing
                         })
                     }
                 }
@@ -71,17 +61,3 @@ gkm.events.on('key.pressed', function(data){
         })
     }
 })
-
-function onClose() {
-    console.info('device closed');
-    process.exit(1);
-}
-
-function onError(error) {
-    console.info(`there was an error with the serial device: ${error}`);
-    process.exit(1);
-}
-
-device.on('open', onOpen);
-device.on('close', onClose);
-device.on('error', onError);

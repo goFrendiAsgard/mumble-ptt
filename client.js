@@ -8,77 +8,108 @@ if(process.argv.length < 5){
     process.exit(-1);
 }
 
-const device = new SerialPort(process.argv[2]); // buka port
+const device = new SerialPort(process.argv[2], { autoOpen : false} ); // set device 
 const id = process.argv[3]
 const url = process.argv[4]
 
-function onOpen() {
-    Cmd.get('mumble rpc mute', function(){
-        console.log('device Open');
-        console.log(`Baud Rate: ${device.options.baudRate}`);
-    })
-}
-
-function onData(data) {
-    if(data == 1){
-        // send request to server 
-        let httpreq = Http.get(url+'/wantToTalk/'+id, function (response) {
-            response.setEncoding('utf8')
-            let output = ''
-            // get each chunk as output
-            response.on('data', function (chunk) {
-                output += chunk
-            })
-            // show the output
-            response.on('end', function() {
-                try{
-                    output = JSON.parse(output)
-                    if(output.allowed){
-                        Cmd.get('mumble rpc unmute', function(){
-                            device.write(1)
-                        })
-                    }
-                    else{
-                        Cmd.get('mumble rpc mute', function(){
-                            device.write(0)
-                        })
-                    }
-                }
-                catch(err){
-                    console.error('[ERROR] Failed to parse JSON')
-                    console.error(err)
-                }
-            })
-        })
-        // error handler
-        httpreq.on('error', function (e) {
-            console.error('[ERROR] Request failed')
-            console.error(JSON.stringify(e))
-        });
-        // timeout handler
-        httpreq.on('timeout', function () {
-            console.error('[ERROR] Request timeout')
-            httpreq.abort();
-        });
+// buka device 
+device.open((error)=>{
+    if(error){
+        console.log(error)
     }
     else{
+        // sebelum mulai, mute mumble client terlebih dahulu
         Cmd.get('mumble rpc mute', function(){
-            device.write(0)
+            console.log('device Open');
+            console.log(`Baud Rate: ${device.options.baudRate}`);
         })
+        // jalankan fungsi main
+        main()
     }
-}
+})
 
-function onClose() {
-    console.info('device closed');
-    process.exit(1);
-}
+function main(){
+    // baca state dari server 
+    device.get((error, state)=>{
+        if(error){
+            console.log(error)
+        }
+        else{
+            console.log(state) // state yang dibaca hanya bisa cts, dsr, dcd
 
-function onError(error) {
-    console.info(`there was an error with the serial device: ${error}`);
-    process.exit(1);
-}
+            if(state.dsr == 1){
+                // send request to server 
+                let httpreq = Http.get(url+'/wantToTalk/'+id, function (response) {
+                    response.setEncoding('utf8')
+                    let output = ''
+                    // get each chunk as output
+                    response.on('data', function (chunk) {
+                        output += chunk
+                    })
+                    // show the output
+                    response.on('end', function() {
+                        try{
+                            output = JSON.parse(output)
+                            if(output.allowed){
+                                Cmd.get('mumble rpc unmute', function(){
 
-device.on('open', onOpen);
-device.on('data', onData);
-device.on('close', onClose);
-device.on('error', onError);
+                                    // kirim data 1 ke dsr
+                                    port.set({'brk':1, 'cts':1, 'dsr':1, 'dtr':1, 'rts':1}, (error)=>{
+                                        if(error){
+                                            console.log(error)
+                                        }
+                                    })
+
+                                })
+                            }
+                            else{
+                                Cmd.get('mumble rpc mute', function(){
+
+                                    // kirim data 0 ke dsr
+                                    port.set({'brk':0, 'cts':0, 'dsr':0, 'dtr':0, 'rts':0}, (error)=>{
+                                        if(error){
+                                            console.log(error)
+                                        }
+                                    })
+
+                                })
+                            }
+                        }
+                        catch(err){
+                            console.error('[ERROR] Failed to parse JSON')
+                            console.error(err)
+                        }
+                    })
+                })
+                // error handler
+                httpreq.on('error', function (e) {
+                    console.error('[ERROR] Request failed')
+                    console.error(JSON.stringify(e))
+                });
+                // timeout handler
+                httpreq.on('timeout', function () {
+                    console.error('[ERROR] Request timeout')
+                    httpreq.abort();
+                });
+            }
+            else{
+                Cmd.get('mumble rpc mute', function(){
+
+                    // kirim data 0 ke dsr
+                    port.set({'brk':0, 'cts':0, 'dsr':0, 'dtr':0, 'rts':0}, (error)=>{
+                        if(error){
+                            console.log(error)
+                        }
+                    })
+
+                })
+            }
+
+            // panggil main lagi
+            setTimeout(main, 1)
+
+        }
+
+    })
+
+}

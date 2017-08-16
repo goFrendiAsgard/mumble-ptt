@@ -21,10 +21,10 @@
   },
   "homepage": "https://github.com/goFrendiAsgard/ptt#readme",
   "dependencies": {
-    "express": "^4.15.3",
+    "express": "^4.15.4",
     "gkm": "^0.1.0",
     "http": "0.0.0",
     "node-cmd": "^3.0.0",
-    "serialport": "^4.0.7"
+    "serialport": "^5.0.0"
   }
 }

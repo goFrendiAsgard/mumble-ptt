@@ -15,43 +15,39 @@ if (!args.port) {
     process.exit(-1);
 }
 
-const port = new SerialPort(args.port); // open the serial port:
-let output = 32; // ASCII space; lowest printable character
-let byteCount = 0; // number of bytes read
+const port = new SerialPort(args.port, { autoOpen: false }); // open the serial port:
 
-function onOpen() {
-    console.log('Port Open');
-    console.log(`Baud Rate: ${port.options.baudRate}`);
-    const outString = String.fromCharCode(output);
-    console.log(`Sent:\t\t${outString}`);
-    port.write(outString);
-}
-
-function onData(data) {
-    if (output <= 126) { // highest printable character: ASCII ~
-        output++;
-    } else {
-        output = 32; // lowest printable character: space
+// open port
+port.open((error)=>{
+    if(error){
+        console.log(error)
     }
-    console.log(`Received:\t${data}`);
-    console.log(`Read Events:\t${byteCount}`);
-    byteCount++;
-    const outString = String.fromCharCode(output);
-    port.write(outString);
-    console.log(`Sent:\t\t${outString}`);
+    else{
+        getAndSend()
+    }
+})
+
+function getAndSend(){
+    // get state
+    port.get((error, state)=>{
+        if(error){
+            console.log(error)
+        }
+        else{
+            console.log(state) // cts, dsr, dcd
+
+            // send data
+            port.set({'brk':1, 'cts':1, 'dsr':1, 'dtr':1, 'rts':1}, (error)=>{
+                if(error){
+                    console.log(error)
+                }
+                else{
+                }
+            })
+
+        }
+    })
+
+    setTimeout(getAndSend, 1)
 }
 
-function onClose() {
-    console.log('port closed');
-    process.exit(1);
-}
-
-function onError(error) {
-    console.log(`there was an error with the serial port: ${error}`);
-    process.exit(1);
-}
-
-port.on('open', onOpen);
-port.on('data', onData);
-port.on('close', onClose);
-port.on('error', onError);

@@ -12,7 +12,14 @@ Tujuan project ini adalah memberi tambahan fitur PTT (Push to Talk) di Mumble
 * Install Node.Js (butuh koneksi internet) <-- Node.Js dibutuhkan untuk menjalankan PTT Server
     - `sudo apt-get install nodejs`
     - `sudo apt-get install nodejs-legacy`
+    - `sudo apt-get install build-essential`
 * Download repository ini (https://github.com/goFrendiAsgard/mumble-ptt/archive/master.zip)
+* Install dependency (hanya jika folder `node_modules` kosong)
+    - `npm install --save --build-from-source`
+    - `npm install --save lame`
+    - `cd node_modules`
+    - `git clone git@github.com:vincentsaluzzo/node-microphone.git`
+    - `mv node-microphone microphone`
 
 # Setup Instruction for Server
 

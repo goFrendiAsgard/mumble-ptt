@@ -23,7 +23,9 @@
   "dependencies": {
     "express": "^4.15.4",
     "gkm": "^0.1.0",
+    "gofrendi-microphone": "^1.0.9",
     "http": "0.0.0",
+    "lame": "^1.2.4",
     "node-cmd": "^3.0.0",
     "serialport": "^5.0.0"
   }

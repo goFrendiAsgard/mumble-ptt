@@ -2,6 +2,12 @@
 
 Tujuan project ini adalah memberi tambahan fitur PTT (Push to Talk) di Mumble
 
+# System Diagram
+![Alur](recources/alur.png)
+
+# Serial Port Datasheet
+![Serial](recources/serial.jpg)
+
 # Setup Instruction for Server and Client
 
 * Install Ubuntu
@@ -9,6 +15,7 @@ Tujuan project ini adalah memberi tambahan fitur PTT (Push to Talk) di Mumble
     - `sudo add-apt-repository ppa:mumble/snapshot` <-- Menambahkan respository mumble terbaru agar dikenali ubuntu
     - `sudo apt-get update` <-- Memerintahkan ubuntu untuk mengupdate repository
     - `sudo apt-get install mumble-server mumble` <-- menginstall mumber server dan mumble client
+    - `sudo apt-get install sox` <-- butuh sox untuk handling audio
 * Install Node.Js (butuh koneksi internet) <-- Node.Js dibutuhkan untuk menjalankan PTT Server
     - `sudo apt-get install nodejs`
     - `sudo apt-get install nodejs-legacy`
@@ -25,6 +32,7 @@ Tujuan project ini adalah memberi tambahan fitur PTT (Push to Talk) di Mumble
     - Extract/unzip repository ini
     - Pindah ke direktori tempat repository diextract (contoh: `cd ~/Downloads/mumble-ptt-master`) 
     - Jalankan perintah `node server.js` untuk menjalankan PTT Server. Jangan tutup terminal.
+* Untuk mematikan PTT Server, tekan `ctrl+c`
 
 # Setup Instruction for Client
 * Jalankan Mumble Client
@@ -33,14 +41,21 @@ Tujuan project ini adalah memberi tambahan fitur PTT (Push to Talk) di Mumble
 * Jalankan PTT Client
     - Extract/unzip repository ini
     - Pindah ke direktori tempat repository diextract (contoh: `cd ~/Downloads/mumble-ptt-master`) 
-    - Jalankan perintah `node client.js /dev/ttyACM0 id-client http://ip-server:3000` untuk menjalankan PTT Server. Jangan tutup terminal.
+    - Jalankan perintah `node client.js [device] [id-client] [http://ip-server:3000]` untuk menjalankan PTT Client. Jangan tutup terminal.
+    - `device` merupakan alamat port USB, biasanya `/dev/ttyACM0` atau `/dev/ttyUSB0`. Untuk memastikan, unplug dan plug kabel USB, lalu jalankan perintah `dmesg`
+* Untuk mematikan PTT Client, tekan `ctrl+c`
 
-# Keterangan
+## Keterangan
 * PTT Client memiliki 3 parameter
     - `device` merupakan alamat port USB, biasanya `/dev/ttyACM0`. Untuk memastikan, unplug dan plug kabel USB, lalu jalankan perintah `dmesg`
     - `id-client` harus berbeda untuk setiap client, bisa diberi nilai berupa kombinasi huruf dan angka tanpa spasi dan tanda baca.
     - `url` diisi dengan http + IP Server.
 
-# Catatan
-
-* Keyboard listener https://www.npmjs.com/package/gkm
+# Setup Instruction for Client (keyboard)
+* Jalankan Mumble Client
+* Koneksikan ke Mumble Server berdasarkan IP milik Server
+* Jalankan PTT Client (keyboard)
+    - Extract/unzip repository ini
+    - Pindah ke direktori tempat repository diextract (contoh: `cd ~/Downloads/mumble-ptt-master`) 
+    - Jalankan perintah `node client-keyboard.js [id-client] [http://ip-server:3000]` untuk menjalankan PTT Client. Jangan tutup terminal.
+* Untuk mematikan PTT Client, tekan `ctrl+c`

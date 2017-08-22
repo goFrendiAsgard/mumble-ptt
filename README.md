@@ -3,10 +3,10 @@
 Tujuan project ini adalah memberi tambahan fitur PTT (Push to Talk) di Mumble
 
 # System Diagram
-![Alur](recources/alur.png)
+![Alur](resources/alur.png)
 
 # Serial Port Datasheet
-![Serial](recources/serial.jpg)
+![Serial](resources/serial.jpg)
 
 # Setup Instruction for Server and Client
 

@@ -16,10 +16,6 @@ Tujuan project ini adalah memberi tambahan fitur PTT (Push to Talk) di Mumble
 * Download repository ini (https://github.com/goFrendiAsgard/mumble-ptt/archive/master.zip)
 * Install dependency (hanya jika folder `node_modules` kosong)
     - `npm install --save --build-from-source`
-    - `npm install --save lame`
-    - `cd node_modules`
-    - `git clone git@github.com:vincentsaluzzo/node-microphone.git`
-    - `mv node-microphone microphone`
 
 # Setup Instruction for Server
 

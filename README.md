@@ -59,3 +59,12 @@ Tujuan project ini adalah memberi tambahan fitur PTT (Push to Talk) di Mumble
     - Pindah ke direktori tempat repository diextract (contoh: `cd ~/Downloads/mumble-ptt-master`) 
     - Jalankan perintah `node client-keyboard.js [id-client] [http://ip-server:3000]` untuk menjalankan PTT Client. Jangan tutup terminal.
 * Untuk mematikan PTT Client, tekan `ctrl+c`
+
+# Setup Instruction for Client (interfaceless)
+* Jalankan Mumble Client
+* Koneksikan ke Mumble Server berdasarkan IP milik Server
+* Jalankan PTT Client (keyboard)
+    - Extract/unzip repository ini
+    - Pindah ke direktori tempat repository diextract (contoh: `cd ~/Downloads/mumble-ptt-master`) 
+    - Jalankan perintah `node client-interfaceless.js [id-client] [http://ip-server:3000]` untuk menjalankan PTT Client. Jangan tutup terminal.
+* Untuk mematikan PTT Client, tekan `ctrl+c`

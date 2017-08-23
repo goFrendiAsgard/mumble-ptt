@@ -32,7 +32,6 @@ device.open((error)=>{
         // get from mic
         mic.infoStream.on('data', function(micInfo) {
             if(String(micInfo).match(/[=-]\|[=-]/g)){
-                console.log('ngomong')
                 // send request to server 
                 let httpreq = Http.get(url+'/wantToTalk/'+id, function (response) {
                     response.setEncoding('utf8')

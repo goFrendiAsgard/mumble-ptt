@@ -63,6 +63,10 @@ Tujuan project ini adalah memberi tambahan fitur PTT (Push to Talk) di Mumble
 # Setup Instruction for Client (interfaceless)
 * Jalankan Mumble Client
 * Koneksikan ke Mumble Server berdasarkan IP milik Server
+* Setting mumble client seperti berikut
+
+    ![setting](resources/setting.png)
+
 * Jalankan PTT Client (keyboard)
     - Extract/unzip repository ini
     - Pindah ke direktori tempat repository diextract (contoh: `cd ~/Downloads/mumble-ptt-master`) 

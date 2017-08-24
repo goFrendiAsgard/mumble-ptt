@@ -5,7 +5,7 @@ const Cmd = require('node-cmd')
 const Http = require('http')
 
 
-if(process.argv.length < 5){
+if(process.argv.length < 4){
     console.error(`usage: node ${process.argv[1]} <id> <url>`)
     process.exit(-1);
 }
